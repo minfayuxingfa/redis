@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanou.mapper.MessageMapper">
+  <resultMap id="BaseResultMap" type="com.lanou.bean.Message">
+    <id column="mes_id" jdbcType="INTEGER" property="mesId" />
+    <result column="mes_content" jdbcType="VARCHAR" property="mesContent" />
+    <result column="mes_date" jdbcType="DATE" property="mesDate" />
+    <result column="mes_up" jdbcType="INTEGER" property="mesUp" />
+    <result column="mes_down" jdbcType="INTEGER" property="mesDown" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    mes_id, mes_content, mes_date, mes_up, mes_down
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from message
+    where mes_id = #{mesId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from message
+    where mes_id = #{mesId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lanou.bean.Message">
+    insert into message (mes_id, mes_content, mes_date, 
+      mes_up, mes_down)
+    values (#{mesId,jdbcType=INTEGER}, #{mesContent,jdbcType=VARCHAR}, #{mesDate,jdbcType=DATE}, 
+      #{mesUp,jdbcType=INTEGER}, #{mesDown,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lanou.bean.Message">
+    insert into message
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="mesId != null">
+        mes_id,
+      </if>
+      <if test="mesContent != null">
+        mes_content,
+      </if>
+      <if test="mesDate != null">
+        mes_date,
+      </if>
+      <if test="mesUp != null">
+        mes_up,
+      </if>
+      <if test="mesDown != null">
+        mes_down,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="mesId != null">
+        #{mesId,jdbcType=INTEGER},
+      </if>
+      <if test="mesContent != null">
+        #{mesContent,jdbcType=VARCHAR},
+      </if>
+      <if test="mesDate != null">
+        #{mesDate,jdbcType=DATE},
+      </if>
+      <if test="mesUp != null">
+        #{mesUp,jdbcType=INTEGER},
+      </if>
+      <if test="mesDown != null">
+        #{mesDown,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lanou.bean.Message">
+    update message
+    <set>
+      <if test="mesContent != null">
+        mes_content = #{mesContent,jdbcType=VARCHAR},
+      </if>
+      <if test="mesDate != null">
+        mes_date = #{mesDate,jdbcType=DATE},
+      </if>
+      <if test="mesUp != null">
+        mes_up = #{mesUp,jdbcType=INTEGER},
+      </if>
+      <if test="mesDown != null">
+        mes_down = #{mesDown,jdbcType=INTEGER},
+      </if>
+    </set>
+    where mes_id = #{mesId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lanou.bean.Message">
+    update message
+    set mes_content = #{mesContent,jdbcType=VARCHAR},
+      mes_date = #{mesDate,jdbcType=DATE},
+      mes_up = #{mesUp,jdbcType=INTEGER},
+      mes_down = #{mesDown,jdbcType=INTEGER}
+    where mes_id = #{mesId,jdbcType=INTEGER}
+  </update>
+</mapper>
